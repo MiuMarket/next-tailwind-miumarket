@@ -5,7 +5,7 @@ import { Store } from '../utils/Store';
 import Image from 'next/image';
 
 export default function Layout({ title, children }) {
-    const { state, dispatch } = useContext(Store);
+    const { state } = useContext(Store);
     const [currentLanguage, setCurrentLanguage] = useState('uk');
     const { cart } = state;
 
