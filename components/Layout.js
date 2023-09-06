@@ -92,14 +92,14 @@ export default function Layout({ title, children }) {
                                 session.user.name
                             ) : (
                                 <Link href="/login" className="p-2 relative">
-                                    {/* <div className="relative"> */}
+
                                     <Image
                                         src="/images/user.svg"
                                         alt="Логін"
                                         width={23}
                                         height={25}
                                     />
-                                    {/* </div> */}
+
                                 </Link>
                             )}
 
