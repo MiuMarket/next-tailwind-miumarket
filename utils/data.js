@@ -1,6 +1,20 @@
-
+import bcrypt from 'bcryptjs';
 
 const data = {
+    users: [
+        {
+            name: 'Igor',
+            email: 'miumarket.com@gmail.com',
+            password: bcrypt.hashSync('123456'),
+            isAdmin: true,
+        },
+        {
+            name: 'Nataliya',
+            email: 'tommobosha@gmail.com',
+            password: bcrypt.hashSync('123456'),
+            isAdmin: false,
+        },
+    ],
     products: [
         {
             name: 'Кулон з гільзи у крафтовому пакуванні',

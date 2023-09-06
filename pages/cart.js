@@ -5,8 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import XCircleIcon from "@heroicons/react/24/outline/XCircleIcon";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
-export default function CartScreen() {
+function CartScreen() {
     const { state, dispatch } = useContext(Store);
     const router = useRouter();
     const {
@@ -15,12 +16,12 @@ export default function CartScreen() {
 
     const removeItemHandler = (item) => {
         dispatch({ type: "CART_REMOVE_ITEM", payload: item });
-    }
+    };
 
     const updateCartHandler = (item, qty) => {
         const quantity = Number(qty);
-        dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } })
-    }
+        dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
+    };
 
     return (
         <Layout title="Кошик">
@@ -60,14 +61,17 @@ export default function CartScreen() {
                                             </Link>
                                         </td>
                                         <td className="p-5 text-right">
-                                            <select value={item.quantity} onChange={(e) => updateCartHandler(item, e.target.value)}>
-                                                {
-                                                    [...Array(item.countInStock).keys()].map((x) => (
-                                                        <option key={x + 1} value={x + 1}>
-                                                            {x + 1}
-                                                        </option>
-                                                    ))
+                                            <select
+                                                value={item.quantity}
+                                                onChange={(e) =>
+                                                    updateCartHandler(item, e.target.value)
                                                 }
+                                            >
+                                                {[...Array(item.countInStock).keys()].map((x) => (
+                                                    <option key={x + 1} value={x + 1}>
+                                                        {x + 1}
+                                                    </option>
+                                                ))}
                                             </select>
                                         </td>
                                         <td className="p-5 text-right">{item.price}</td>
@@ -85,22 +89,24 @@ export default function CartScreen() {
                         <ul>
                             <li>
                                 <div className="pb-3 text-xl">
-                                    Загальна сума ({cartItems.reduce((a, c) => a + c.quantity, 0)})
-                                </div>
-                                {' '}
-                                :
-                                {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)} грн.
+                                    Загальна сума ({cartItems.reduce((a, c) => a + c.quantity, 0)}
+                                    )
+                                </div>{" "}
+                                :{cartItems.reduce((a, c) => a + c.quantity * c.price, 0)} грн.
                             </li>
                             <li>
                                 <button
-                                    onClick={() => router.push('/shipping')}
-                                    className="primary-button w-full">Оформити замовлення</button>
+                                    onClick={() => router.push("login?redirect=/shipping")}
+                                    className="primary-button w-full"
+                                >
+                                    Оформити замовлення
+                                </button>
                             </li>
                         </ul>
-
                     </div>
                 </div>
             )}
         </Layout>
     );
 }
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false })
