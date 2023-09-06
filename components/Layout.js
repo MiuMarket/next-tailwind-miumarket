@@ -3,9 +3,9 @@ import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { Store } from "../utils/Store";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { useSession } from "next-auth/react";
 
 export default function Layout({ title, children }) {
     const { status, data: session } = useSession();
